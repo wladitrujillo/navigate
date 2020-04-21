@@ -1,19 +1,19 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { ListaCompras } from "./screens/ListaCompras";
+import { ListaProductos } from "./screens/ListaProductos";
+
+let NavStack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>EJERCICIO DE NAVEGACIÓN</Text>
-    </View>
+    <NavigationContainer>
+      <NavStack.Navigator initialRouteName="ListaComprasScreen">
+        <NavStack.Screen name="ListaComprasScreen" component={ListaCompras} />
+        <NavStack.Screen name="ListaProductosScreen" component={ListaProductos} />
+      </NavStack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

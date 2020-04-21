@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 
 export class ListaCompras extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text>LISTA DE COMPRAS</Text>
+        <Button
+          title="Productos"
+          onPress={() => { this.props.navigation.navigate("ListaProductosScreen") }} />
       </View>
     );
   }

@@ -5,9 +5,7 @@ export class FormularioProducto extends Component {
     return (
       <View style={styles.container}>
         <Text>FORMULARIO DE PROUDCTO</Text>
-        <Button
-          title="Detalle Compra"
-          onPress={() => { this.props.navigation.navigate("DetalleCompra") }} />
+       
       </View>
     );
   }

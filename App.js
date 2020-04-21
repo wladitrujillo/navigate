@@ -13,14 +13,40 @@ let NavStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
 
 
-let TabCompra = () => {
+let TabStack = () => {
   return <NavStack.Navigator initialRouteName="FormularioScreen">
     <NavStack.Screen
-      name="DetalleCompra"
+      name="DetalleCompraScreen"
       component={DetalleCompra} options={{ title: "Detalle Compra" }}
     />
     <NavStack.Screen
-      name="FormularioScreen"
+      name="FormularioProductoScreen"
+      component={FormularioProducto} options={{ title: "Formulario de Productos" }}
+    />
+  </NavStack.Navigator>
+}
+
+let ComprasStack = () => {
+  return <NavStack.Navigator initialRouteName="ListaComprasScreen">
+    <NavStack.Screen
+      name="ListaComprasScreen"
+      component={ListaCompras} options={{ title: "Lista Compras" }}
+    />
+    <NavStack.Screen
+      name="DetalleCompraScreen"
+      component={DetalleCompra} options={{ title: "Detalle Compra" }}
+    />
+  </NavStack.Navigator>
+}
+
+let ProductosStack = () => {
+  return <NavStack.Navigator initialRouteName="ListProductosScreen">
+    <NavStack.Screen
+      name="ListProductosScreen"
+      component={ListaProductos} options={{ title: "Lista Productos" }}
+    />
+    <NavStack.Screen
+      name="FormularioProductoScreen"
       component={FormularioProducto} options={{ title: "Formulario de Productos" }}
     />
   </NavStack.Navigator>
@@ -31,7 +57,8 @@ export default function App() {
     <NavigationContainer>
 
       <NavTab.Navigator>
-        <NavTab.Screen name="ListaComprasScreen" component={ListaCompras}
+
+        <NavTab.Screen name="ListaComprasScreen" component={ComprasStack}
           options={{
             tabBarLabel: "Compras",
             tabBarIcon: () => {
@@ -41,8 +68,8 @@ export default function App() {
                 color='#517fa4'
               />
             }
-          }}></NavTab.Screen>
-        <NavTab.Screen name="ListaProductosScreen" component={ListaProductos}
+          }} />
+        <NavTab.Screen name="ListaProductosScreen" component={ProductosStack}
           options={{
             tabBarLabel: "Productos",
             tabBarIcon: () => {
@@ -52,18 +79,8 @@ export default function App() {
                 color='#517fa4'
               />
             }
-          }}></NavTab.Screen>
-        <NavTab.Screen name="StackScreen" component={TabCompra}
-          options={{
-            tabBarLabel: "TabCompra",
-            tabBarIcon: () => {
-              return <Icon
-                name='bitbucket'
-                type='evilicon'
-                color='#517fa4'
-              />
-            }
-          }}></NavTab.Screen>
+          }} />
+
       </NavTab.Navigator>
     </NavigationContainer>
   );

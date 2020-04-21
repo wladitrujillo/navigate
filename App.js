@@ -10,8 +10,14 @@ export default function App() {
   return (
     <NavigationContainer>
       <NavStack.Navigator initialRouteName="ListaComprasScreen">
-        <NavStack.Screen name="ListaComprasScreen" component={ListaCompras} />
-        <NavStack.Screen name="ListaProductosScreen" component={ListaProductos} />
+        <NavStack.Screen
+          name="ListaComprasScreen"
+          component={ListaCompras} options={{ title: "Lista de Compras" }}
+        />
+        <NavStack.Screen
+          name="ListaProductosScreen"
+          component={ListaProductos} options={{ title: "Lista de Productos" }}
+        />
       </NavStack.Navigator>
     </NavigationContainer>
   );

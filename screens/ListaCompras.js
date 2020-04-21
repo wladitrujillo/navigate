@@ -9,7 +9,7 @@ export class ListaCompras extends Component {
         <Button
           title="Productos"
           onPress={() => { this.props.navigation.navigate("ListaProductosScreen") }} />
-          <Button
+        <Button
           title="Formulario Producto"
           onPress={() => { this.props.navigation.navigate("FormularioProductosScreen") }} />
       </View>

@@ -13,17 +13,33 @@ let NavStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
 
 
-let TabStack = () => {
-  return <NavStack.Navigator initialRouteName="FormularioScreen">
-    <NavStack.Screen
-      name="DetalleCompraScreen"
-      component={DetalleCompra} options={{ title: "Detalle Compra" }}
-    />
-    <NavStack.Screen
-      name="FormularioProductoScreen"
-      component={FormularioProducto} options={{ title: "Formulario de Productos" }}
-    />
-  </NavStack.Navigator>
+let TabHome = () => {
+  return <NavTab.Navigator>
+
+    <NavTab.Screen name="ListaComprasScreen" component={ListaCompras}
+      options={{
+        tabBarLabel: "Compras",
+        tabBarIcon: () => {
+          return <Icon
+            name='cart-arrow-down'
+            type='evilicon'
+            color='#517fa4'
+          />
+        }
+      }} />
+    <NavTab.Screen name="ListaProductosScreen" component={ListaProductos}
+      options={{
+        tabBarLabel: "Productos",
+        tabBarIcon: () => {
+          return <Icon
+            name='bitbucket'
+            type='evilicon'
+            color='#517fa4'
+          />
+        }
+      }} />
+
+  </NavTab.Navigator>
 }
 
 let ComprasStack = () => {
@@ -55,33 +71,23 @@ let ProductosStack = () => {
 export default function App() {
   return (
     <NavigationContainer>
+      <NavStack.Navigator>
 
-      <NavTab.Navigator>
+        <NavStack.Screen
+          name="TabHome"
+          component={TabHome}
+          options={{ title: "Home" }}
+        />
+        <NavStack.Screen
+          name="DetalleCompraScreen"
+          component={DetalleCompra} options={{ title: "Detalle Compra" }}
+        />
+        <NavStack.Screen
+          name="FormularioProductoScreen"
+          component={FormularioProducto} options={{ title: "Formulario de Productos" }}
+        />
+      </NavStack.Navigator>
 
-        <NavTab.Screen name="ListaComprasScreen" component={ComprasStack}
-          options={{
-            tabBarLabel: "Compras",
-            tabBarIcon: () => {
-              return <Icon
-                name='cart-arrow-down'
-                type='evilicon'
-                color='#517fa4'
-              />
-            }
-          }} />
-        <NavTab.Screen name="ListaProductosScreen" component={ProductosStack}
-          options={{
-            tabBarLabel: "Productos",
-            tabBarIcon: () => {
-              return <Icon
-                name='bitbucket'
-                type='evilicon'
-                color='#517fa4'
-              />
-            }
-          }} />
-
-      </NavTab.Navigator>
     </NavigationContainer>
   );
 }

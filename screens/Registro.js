@@ -33,8 +33,12 @@ export class Registrarse extends Component {
                         firebase
                             .auth()
                             .createUserWithEmailAndPassword(this.state.email, this.state.password)
-                            .then((obj) => { Alert.alert("Info", "User registered") })
-                            .catch((error) => { Alert.alert("Error!", error.message) })
+                            .then((obj) => {
+                                Alert.alert("Info", "User registered")
+                            })
+                            .catch((error) => {
+                                Alert.alert("Error!", error.message)
+                            })
                     }}
                 />
             </View>

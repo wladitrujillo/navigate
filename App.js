@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -8,7 +8,9 @@ import { DetalleCompra } from "./screens/DetalleCompra";
 import { ListaCompras } from "./screens/ListaCompras";
 import { ListaProductos } from "./screens/ListaProductos";
 import { FormularioProducto } from "./screens/FormularioProducto";
-import { Informacion} from "./screens/Informacion";
+import { Informacion } from "./screens/Informacion";
+import { Registrarse } from "./screens/Registrarse";
+import { Login } from "./screens/Login";
 
 let NavStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
@@ -63,16 +65,47 @@ let Home = () => {
   </NavStack.Navigator>
 }
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <NavDrawer.Navigator>
-        <NavDrawer.Screen name="Home" component={Home}/>
-        <NavDrawer.Screen name="Information" component={Informacion}/>
+export default class App extends Component {
 
-      </NavDrawer.Navigator>
+  constructor() {
+    super();
+    this.state = {
+      login: false
+    }
+  }
 
-    </NavigationContainer>
-  );
+
+  cambiarEstado = () => {
+    this.setState({
+      login: true
+    });
+  }
+
+  render() {
+    return (
+      <NavigationContainer>
+
+        {
+
+
+          this.state.login ? (<NavDrawer.Navigator>
+            <NavDrawer.Screen name="Home" component={Home} />
+            <NavDrawer.Screen name="Information" component={Informacion} />
+          </NavDrawer.Navigator>) : (
+              <NavStack.Navigator>
+                <NavStack.Screen name="Login">
+                  {() => { return (<Login fn_cambiarEstado={this.cambiarEstado} />) }}
+                </NavStack.Screen>
+                <NavStack.Screen name="Registrarse" component={Registrarse} />
+              </NavStack.Navigator>
+            )
+        }
+
+
+      </NavigationContainer>
+    );
+
+  }
+
 }
 

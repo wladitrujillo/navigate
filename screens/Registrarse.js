@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 
-export class Login extends Component {
+export class Registrarse extends Component {
     render() {
         return (
             <View style={styles.container}>
@@ -12,7 +12,7 @@ export class Login extends Component {
                 />
                 <Button
                     title="Registrar"
-                    onPress={() => { this.props.navigation.navigate("Registrarse") }}
+                    onPress={() => { }}
                 />
             </View>
         );

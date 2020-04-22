@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 
-export class ListaCompras extends Component {
+export class Informacion extends Component {
   render() {
     return (
       <View style={styles.container}>

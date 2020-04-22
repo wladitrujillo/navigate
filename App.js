@@ -8,6 +8,7 @@ import { DetalleCompra } from "./screens/DetalleCompra";
 import { ListaCompras } from "./screens/ListaCompras";
 import { ListaProductos } from "./screens/ListaProductos";
 import { FormularioProducto } from "./screens/FormularioProducto";
+import { Informacion} from "./screens/Informacion";
 
 let NavStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
@@ -43,26 +44,33 @@ let TabHome = () => {
   </NavTab.Navigator>
 }
 
+let Home = () => {
+  return <NavStack.Navigator initialRouteName="TabHome">
+
+    <NavStack.Screen
+      name="TabHome"
+      component={TabHome}
+      options={{ title: "Home" }}
+    />
+    <NavStack.Screen
+      name="DetalleCompraScreen"
+      component={DetalleCompra} options={{ title: "Detalle Compra" }}
+    />
+    <NavStack.Screen
+      name="FormularioProductoScreen"
+      component={FormularioProducto} options={{ title: "Formulario de Productos" }}
+    />
+  </NavStack.Navigator>
+}
 
 export default function App() {
   return (
     <NavigationContainer>
-      <NavStack.Navigator initialRouteName="TabHome">
+      <NavDrawer.Navigator>
+        <NavDrawer.Screen name="Home" component={Home}/>
+        <NavDrawer.Screen name="Information" component={Informacion}/>
 
-        <NavStack.Screen
-          name="TabHome"
-          component={TabHome}
-          options={{ title: "Home" }}
-        />
-        <NavStack.Screen
-          name="DetalleCompraScreen"
-          component={DetalleCompra} options={{ title: "Detalle Compra" }}
-        />
-        <NavStack.Screen
-          name="FormularioProductoScreen"
-          component={FormularioProducto} options={{ title: "Formulario de Productos" }}
-        />
-      </NavStack.Navigator>
+      </NavDrawer.Navigator>
 
     </NavigationContainer>
   );

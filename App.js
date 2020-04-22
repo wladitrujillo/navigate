@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { DetalleCompra } from "./screens/DetalleCompra";
 import { ListaCompras } from "./screens/ListaCompras";
@@ -11,6 +11,7 @@ import { FormularioProducto } from "./screens/FormularioProducto";
 
 let NavStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
+let NavDrawer = createDrawerNavigator();
 
 
 let TabHome = () => {
@@ -42,36 +43,11 @@ let TabHome = () => {
   </NavTab.Navigator>
 }
 
-let ComprasStack = () => {
-  return <NavStack.Navigator initialRouteName="ListaComprasScreen">
-    <NavStack.Screen
-      name="ListaComprasScreen"
-      component={ListaCompras} options={{ title: "Lista Compras" }}
-    />
-    <NavStack.Screen
-      name="DetalleCompraScreen"
-      component={DetalleCompra} options={{ title: "Detalle Compra" }}
-    />
-  </NavStack.Navigator>
-}
-
-let ProductosStack = () => {
-  return <NavStack.Navigator initialRouteName="ListaProductosScreen">
-    <NavStack.Screen
-      name="ListaProductosScreen"
-      component={ListaProductos} options={{ title: "Lista Productos" }}
-    />
-    <NavStack.Screen
-      name="FormularioProductoScreen"
-      component={FormularioProducto} options={{ title: "Formulario de Productos" }}
-    />
-  </NavStack.Navigator>
-}
 
 export default function App() {
   return (
     <NavigationContainer>
-      <NavStack.Navigator>
+      <NavStack.Navigator initialRouteName="TabHome">
 
         <NavStack.Screen
           name="TabHome"

@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
+import { NavigationContext } from '@react-navigation/native';
 
 export class Login extends Component {
+    static contextType = NavigationContext;
+
     render() {
+        const navigation = this.context;
         return (
             <View style={styles.container}>
                 <Text>Información</Text>
@@ -12,7 +16,7 @@ export class Login extends Component {
                 />
                 <Button
                     title="Registrar"
-                    onPress={() => { this.props.navigation.navigate("Registrarse") }}
+                    onPress={() => { navigation.navigate("Registrarse") }}
                 />
             </View>
         );

@@ -9,8 +9,9 @@ import { ListaCompras } from "./screens/ListaCompras";
 import { ListaProductos } from "./screens/ListaProductos";
 import { FormularioProducto } from "./screens/FormularioProducto";
 import { Informacion } from "./screens/Informacion";
-import { Registrarse } from "./screens/Registrarse";
+import { Registrarse } from "./screens/Registro";
 import { Login } from "./screens/Login";
+import { cargarConfiguracion } from "./services/firebase.config"
 
 let NavStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
@@ -71,6 +72,9 @@ export default class App extends Component {
     super();
     this.state = {
       login: false
+    }
+    if (!global.isConfig) {
+      cargarConfiguracion();
     }
   }
 

@@ -40,9 +40,9 @@ let ComprasStack = () => {
 }
 
 let ProductosStack = () => {
-  return <NavStack.Navigator initialRouteName="ListProductosScreen">
+  return <NavStack.Navigator initialRouteName="ListaProductosScreen">
     <NavStack.Screen
-      name="ListProductosScreen"
+      name="ListaProductosScreen"
       component={ListaProductos} options={{ title: "Lista Productos" }}
     />
     <NavStack.Screen

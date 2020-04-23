@@ -14,6 +14,7 @@ import { CambioClave } from "./screens/CambioClave";
 import { Login } from "./screens/Login";
 import { cargarConfiguracion } from "./services/firebase.config"
 import firebase from "firebase";
+import { CerrarSesion } from './screens/CerrarSesion';
 
 let NavStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
@@ -107,6 +108,7 @@ export default class App extends Component {
           this.state.login ? (<NavDrawer.Navigator>
             <NavDrawer.Screen name="Home" component={Home} />
             <NavDrawer.Screen name="Information" component={Informacion} />
+            <NavDrawer.Screen name="CerrarSesion" component={CerrarSesion} />
           </NavDrawer.Navigator>) : (
               <NavStack.Navigator>
                 <NavStack.Screen name="Login" component={Login} />

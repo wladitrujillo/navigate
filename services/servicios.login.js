@@ -31,7 +31,18 @@ export const validarIngreso = (email, password) => {
 
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((obj) => {
-            
+
+        })
+        .catch((error) => {
+            Alert.alert("Error!", error.message + "-" + error.code)
+        })
+}
+
+export const cerrarSesion = () => {
+
+    firebase.auth().signOut()
+        .then((obj) => {
+
         })
         .catch((error) => {
             Alert.alert("Error!", error.message + "-" + error.code)

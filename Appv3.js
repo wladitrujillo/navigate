@@ -76,7 +76,7 @@ export default class App extends Component {
       login: false
     }
     firebase.auth().onAuthStateChanged((user) => {
-      if (usuario) {
+      if (user) {
         this.setState({
           login: true
         });
@@ -92,7 +92,7 @@ export default class App extends Component {
     }
   }
 
- 
+
 
   render() {
     return (

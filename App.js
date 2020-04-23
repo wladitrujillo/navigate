@@ -75,8 +75,13 @@ export default class App extends Component {
     this.state = {
       login: false
     }
+
+    if (!global.isConfig) {
+      cargarConfiguracion();
+    }
+
     firebase.auth().onAuthStateChanged((user) => {
-      if (usuario) {
+      if (user) {
         this.setState({
           login: true
         });
@@ -85,14 +90,12 @@ export default class App extends Component {
           login: false
         });
       }
-    })
+    });
 
-    if (!global.isConfig) {
-      cargarConfiguracion();
-    }
+
   }
 
- 
+
 
   render() {
     return (
@@ -106,7 +109,7 @@ export default class App extends Component {
             <NavDrawer.Screen name="Information" component={Informacion} />
           </NavDrawer.Navigator>) : (
               <NavStack.Navigator>
-                <NavStack.Screen name="Login" component={Login}/>   
+                <NavStack.Screen name="Login" component={Login} />
                 <NavStack.Screen name="Registrarse" component={Registrarse} />
                 <NavStack.Screen name="RecuperarClave" component={CambioClave} />
               </NavStack.Navigator>

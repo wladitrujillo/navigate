@@ -31,7 +31,7 @@ export const validarIngreso = (email, password) => {
 
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((obj) => {
-            Alert.alert("Login Exitoso!")
+            
         })
         .catch((error) => {
             Alert.alert("Error!", error.message + "-" + error.code)

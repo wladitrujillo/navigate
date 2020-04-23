@@ -106,7 +106,9 @@ export default class App extends Component {
             <NavDrawer.Screen name="Information" component={Informacion} />
           </NavDrawer.Navigator>) : (
               <NavStack.Navigator>
-                <NavStack.Screen name="Login" component={Login}/>   
+                <NavStack.Screen name="Login">
+                  {() => { return (<Login fn_cambiarEstado={this.cambiarEstado} />) }}
+                </NavStack.Screen>
                 <NavStack.Screen name="Registrarse" component={Registrarse} />
                 <NavStack.Screen name="RecuperarClave" component={CambioClave} />
               </NavStack.Navigator>

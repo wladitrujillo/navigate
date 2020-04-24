@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import "@firebase/firestore";
 
 export const cargarConfiguracion = () => {
 
@@ -17,6 +18,7 @@ export const cargarConfiguracion = () => {
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+        global.firestoredb = firebase.firestore();
         global.isConfig = true;
         //firebase.analytics();
 

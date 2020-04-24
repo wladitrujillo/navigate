@@ -15,7 +15,7 @@ import { Login } from "./screens/Login";
 import { cargarConfiguracion } from "./services/firebase.config"
 import firebase from "firebase";
 import { CerrarSesion } from './screens/CerrarSesion';
-
+import { YellowBox } from "react-native";
 let NavStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
 let NavDrawer = createDrawerNavigator();
@@ -73,6 +73,11 @@ export default class App extends Component {
 
   constructor() {
     super();
+    //console.disableYellowBox = true;
+    YellowBox.ignoreWarnings([
+      "Warning: componentWillReceiveProp",
+      "Setting a timer"
+    ]);
     this.state = {
       login: false
     }

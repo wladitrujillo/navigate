@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import { createProduct } from "../services/servicios.product";
+import { Input } from "react-native-elements";
 export class FormularioProducto extends Component {
 
   constructor() {
@@ -10,6 +12,25 @@ export class FormularioProducto extends Component {
       price: ""
     }
   }
+
+  limpiar = () => {
+    this.setState({
+      id: "",
+      name: "",
+      price: ""
+    });
+  }
+
+  onSuccess = () => {
+
+    this.limpiar();
+
+  }
+
+  onError = (error) => {
+    Alert.alert("Error", error.message + " - " + error.code);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -22,18 +43,20 @@ export class FormularioProducto extends Component {
           placeholder="Nombre"
           value={this.state.name}
           onChangeText={(name) => { this.setState({ name: name }) }}
-          secureTextEntry={true}
         />
         <Input
           placeholder="Precio"
           value={this.state.price}
           onChangeText={(price) => { this.setState({ price: price }) }}
-          secureTextEntry={true}
         />
         <Button
-          title="Registrar"
+          title="Guardar"
           onPress={() => {
-            Alert.alert("Click");
+            createProduct({
+              id: this.state.id,
+              name: this.state.name,
+              price: parseFloat(this.state.price)
+            }, this.onSuccess, this.onError);
           }}
         />
       </View>

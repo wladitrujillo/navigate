@@ -13,6 +13,16 @@ export const createProduct = (product, fnOnSuccess) => {
         .catch((error) => { onError(error) })
 }
 
+export const updateProduct = (product, fnOnSuccess) => {
+
+    global.firestoredb
+        .collection(collection)
+        .doc(product.id)
+        .update({ name: product.name, price: product.price })
+        .then((obj) => { fnOnSuccess() })
+        .catch((error) => { onError(error) })
+}
+
 export const deleteProduct = (id, fnOnSuccess) => {
 
     global.firestoredb
@@ -28,7 +38,7 @@ let update = (product, products) => {
 
     let index = findProduct(product, products);
 
-    if (index != -1) {
+    if (index >= 0) {
         products[index] = product;
     }
 
@@ -39,7 +49,7 @@ let remove = (product, products) => {
 
     let index = findProduct(product, products);
     console.log("deleteProduct index ==>", index)
-    if (index != -1) {
+    if (index >= 0) {
         products.splice(index, 1);
     }
 

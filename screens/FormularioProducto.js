@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button, Alert } from "react-native";
-import { createProduct } from "../services/servicios.product";
+import { createProduct, updateProduct } from "../services/servicios.product";
 import { Input } from "react-native-elements";
 export class FormularioProducto extends Component {
 
@@ -11,13 +11,15 @@ export class FormularioProducto extends Component {
       this.state = {
         id: product.id,
         name: product.name,
-        price: product.price
+        price: product.price + "",
+        isNew: false
       }
     } else {
       this.state = {
         id: "",
         name: "",
-        price: ""
+        price: "",
+        isNew: true
       }
     }
 
@@ -43,7 +45,9 @@ export class FormularioProducto extends Component {
         <Input
           placeholder="Id"
           value={this.state.id}
-          onChangeText={(id) => { this.setState({ id: id }) }} />
+          onChangeText={(id) => { this.setState({ id: id }) }}
+          disabled={!this.state.isNew}
+        />
         <Input
           placeholder="Nombre"
           value={this.state.name}
@@ -57,11 +61,25 @@ export class FormularioProducto extends Component {
         <Button
           title="Guardar"
           onPress={() => {
-            createProduct({
-              id: this.state.id,
-              name: this.state.name,
-              price: parseFloat(this.state.price)
-            }, this.onSuccess);
+
+            if (this.state.isNew) {
+
+              createProduct({
+                id: this.state.id,
+                name: this.state.name,
+                price: parseFloat(this.state.price)
+              }, this.onSuccess);
+
+            } else {
+              updateProduct({
+                id: this.state.id,
+                name: this.state.name,
+                price: parseFloat(this.state.price)
+              }, this.onSuccess);
+            }
+
+
+
           }}
         />
       </View>

@@ -1,20 +1,30 @@
 import { Alert } from "react-native";
-
+import { onError } from "../utils/callbacks";
 
 const collection = 'products';
 
-export const createProduct = (product, fnOnSuccess, fnOnError) => {
+export const createProduct = (product, fnOnSuccess) => {
 
     global.firestoredb
         .collection(collection)
         .doc(product.id)
         .set(product)
         .then((obj) => { fnOnSuccess() })
-        .catch((error) => { fnOnError(error) })
+        .catch((error) => { onError(error) })
+}
+
+export const deleteProduct = (id, fnOnSuccess) => {
+
+    global.firestoredb
+        .collection(collection)
+        .doc(id)
+        .delete()
+        .then((obj) => { fnOnSuccess() })
+        .catch((error) => { onError(error) })
 }
 
 
-export const updateProduct = (product, products) => {
+let update = (product, products) => {
 
     let index = findProduct(product, products);
 
@@ -25,7 +35,7 @@ export const updateProduct = (product, products) => {
 }
 
 
-export const deleteProduct = (product, products) => {
+let remove = (product, products) => {
 
     let index = findProduct(product, products);
     console.log("deleteProduct index ==>", index)
@@ -35,7 +45,7 @@ export const deleteProduct = (product, products) => {
 
 }
 
-findProduct = (product, products) => {
+let findProduct = (product, products) => {
     return products.findIndex(item => item.id == product.id);
 }
 
@@ -53,9 +63,9 @@ export const registrarListener = (fnPintarLista) => {
                 if (cambio.type === "added") {
                     products.push(cambio.doc.data());
                 } else if (cambio.type === "removed") {
-                    deleteProduct(cambio.doc.data(), products);
+                    remove(cambio.doc.data(), products);
                 } else if (cambio.type === "modified") {
-                    updateProduct(cambio.doc.data(), products);
+                    update(cambio.doc.data(), products);
                 }
             }
 

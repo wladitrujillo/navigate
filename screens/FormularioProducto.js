@@ -22,13 +22,7 @@ export class FormularioProducto extends Component {
   }
 
   onSuccess = () => {
-
     this.limpiar();
-
-  }
-
-  onError = (error) => {
-    Alert.alert("Error", error.message + " - " + error.code);
   }
 
   render() {
@@ -56,7 +50,7 @@ export class FormularioProducto extends Component {
               id: this.state.id,
               name: this.state.name,
               price: parseFloat(this.state.price)
-            }, this.onSuccess, this.onError);
+            }, this.onSuccess);
           }}
         />
       </View>

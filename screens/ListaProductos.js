@@ -13,6 +13,10 @@ export class ListaProductos extends Component {
       products: []
     }
 
+
+  }
+
+  componentDidMount() {
     registrarListener(this.pintarLista);
   }
 

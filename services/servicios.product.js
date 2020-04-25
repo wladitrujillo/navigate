@@ -28,7 +28,7 @@ export const updateProduct = (product, products) => {
 export const deleteProduct = (product, products) => {
 
     let index = findProduct(product, products);
-
+    console.log("deleteProduct index ==>", index)
     if (index != -1) {
         products.splice(index, 1);
     }
@@ -53,9 +53,9 @@ export const registrarListener = (fnPintarLista) => {
                 if (cambio.type === "added") {
                     products.push(cambio.doc.data());
                 } else if (cambio.type === "removed") {
-                    updateProduct(cambio.doc.data(), products);
-                } else if (cambio.type === "modified") {
                     deleteProduct(cambio.doc.data(), products);
+                } else if (cambio.type === "modified") {
+                    updateProduct(cambio.doc.data(), products);
                 }
             }
 

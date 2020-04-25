@@ -13,9 +13,35 @@ export const createProduct = (product, fnOnSuccess, fnOnError) => {
         .catch((error) => { fnOnError(error) })
 }
 
+
+export const updateProduct = (product, products) => {
+
+    let index = findProduct(product, products);
+
+    if (index != -1) {
+        products[index] = product;
+    }
+
+}
+
+
+export const deleteProduct = (product, products) => {
+
+    let index = findProduct(product, products);
+
+    if (index != -1) {
+        products.splice(index, 1);
+    }
+
+}
+
+findProduct = (product, products) => {
+    return products.findIndex(item => item.id == product.id);
+}
+
 export const registrarListener = (fnPintarLista) => {
 
-    let productos = [];
+    let products = [];
 
     global.firestoredb
         .collection(collection)
@@ -25,15 +51,14 @@ export const registrarListener = (fnPintarLista) => {
             for (let i = 0; i < cambios.length; i++) {
                 cambio = cambios[i];
                 if (cambio.type === "added") {
-                   
-                    productos.push(cambio.doc.data());
+                    products.push(cambio.doc.data());
                 } else if (cambio.type === "removed") {
-                    Alert.alert("removed");
+                    updateProduct(cambio.doc.data(), products);
                 } else if (cambio.type === "modified") {
-                    Alert.alert("modified");
+                    deleteProduct(cambio.doc.data(), products);
                 }
             }
 
-            fnPintarLista(productos);
+            fnPintarLista(products);
         });
 }

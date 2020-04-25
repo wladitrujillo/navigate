@@ -33,7 +33,7 @@ export class ListaProductos extends Component {
 
         <FlatList
           data={this.state.products}
-          renderItem={({ item }) => <ItemProducto prod={item} />}
+          renderItem={({ item }) => <ItemProducto prod={item} nav={this.props.navigation} />}
           keyExtractor={product => product.id + ""} >
         </FlatList>
 

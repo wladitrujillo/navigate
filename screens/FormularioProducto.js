@@ -4,13 +4,24 @@ import { createProduct } from "../services/servicios.product";
 import { Input } from "react-native-elements";
 export class FormularioProducto extends Component {
 
-  constructor() {
-    super();
-    this.state = {
-      id: "",
-      name: "",
-      price: ""
+  constructor(props) {
+    super(props);
+    if (this.props.route.params) {
+      let product = this.props.route.params.product;
+      this.state = {
+        id: product.id,
+        name: product.name,
+        price: product.price
+      }
+    } else {
+      this.state = {
+        id: "",
+        name: "",
+        price: ""
+      }
     }
+
+
   }
 
   limpiar = () => {

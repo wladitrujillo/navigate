@@ -97,7 +97,7 @@ export default class App extends Component {
     }
 
     firebase.auth().onAuthStateChanged((user) => {
-      console.log("onAuthStateChanged", user.lastLoginAt);
+
       if (user) {
 
         this.setState({

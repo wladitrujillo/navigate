@@ -13,8 +13,9 @@ export default class ItemProductoListar extends Component {
 
         let { id, name, price } = this.props.prod;
 
-        return <View>
+        return (
             <TouchableHighlight
+                underlayColor="white"
                 onPress={() => { nav.navigate('ProductDetailScreen', { prod: prod }) }}>
                 <View style={styles.row}>
 
@@ -28,8 +29,7 @@ export default class ItemProductoListar extends Component {
                         <Text style={styles.priceText}> {price}</Text>
                     </View>
                 </View>
-            </TouchableHighlight>
-        </View>
+            </TouchableHighlight>);
     }
 }
 

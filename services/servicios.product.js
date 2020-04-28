@@ -1,12 +1,12 @@
 import { Alert } from "react-native";
 import { onError } from "../utils/callbacks";
 
-const collection = 'products';
+const products = 'products';
 
 export const createProduct = (product, fnOnSuccess) => {
 
     global.firestoredb
-        .collection(collection)
+        .collection(products)
         .doc(product.id)
         .set(product)
         .then((obj) => { fnOnSuccess() })
@@ -16,7 +16,7 @@ export const createProduct = (product, fnOnSuccess) => {
 export const updateProduct = (product, fnOnSuccess) => {
 
     global.firestoredb
-        .collection(collection)
+        .collection(products)
         .doc(product.id)
         .update({ name: product.name, price: product.price })
         .then((obj) => { fnOnSuccess() })
@@ -26,7 +26,7 @@ export const updateProduct = (product, fnOnSuccess) => {
 export const deleteProduct = (id, fnOnSuccess) => {
 
     global.firestoredb
-        .collection(collection)
+        .collection(products)
         .doc(id)
         .delete()
         .then((obj) => { fnOnSuccess() })
@@ -34,51 +34,33 @@ export const deleteProduct = (id, fnOnSuccess) => {
 }
 
 
-let update = (product, products) => {
-
-    let index = findProduct(product, products);
-
-    if (index >= 0) {
-        products[index] = product;
-    }
-
-}
-
-
-let remove = (product, products) => {
-
-    let index = findProduct(product, products);
-    console.log("deleteProduct index ==>", index)
-    if (index >= 0) {
-        products.splice(index, 1);
-    }
-
-}
-
-let findProduct = (product, products) => {
-    return products.findIndex(item => item.id == product.id);
-}
-
 export const registrarListener = (fnPintarLista) => {
 
-    let products = [];
+    let items = [];
+
+    let findIndex = (cambio) => {
+        return items.findIndex(e => e.id == cambio.doc.data().id);;
+    }
 
     global.firestoredb
-        .collection(collection)
+        .collection(products)
         .onSnapshot((snapShotCambios) => {
-            let cambios = snapShotCambios.docChanges();
-            let cambio;
-            for (let i = 0; i < cambios.length; i++) {
-                cambio = cambios[i];
-                if (cambio.type === "added") {
-                    products.push(cambio.doc.data());
-                } else if (cambio.type === "removed") {
-                    remove(cambio.doc.data(), products);
-                } else if (cambio.type === "modified") {
-                    update(cambio.doc.data(), products);
+
+            for (cambio of snapShotCambios.docChanges()) {
+                let index = findIndex(cambio)
+                switch (cambio.type) {
+                    case "added":
+                        items.push(cambio.doc.data());
+                        break;
+                    case "removed":
+                        if (index >= 0) items.splice(index, 1);
+                        break;
+                    case "modified":
+                        if (index >= 0) items[index] = cambio.doc.data();
+                        break;
                 }
             }
 
-            fnPintarLista(products);
+            fnPintarLista(items);
         });
 }

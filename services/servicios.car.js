@@ -28,7 +28,7 @@ export const deleteItem = (mail, id) => {
 
 
 
-export const registrarListener = (mail, fnPintarLista) => {
+export const registrarListener = (mail, fnCallback) => {
 
     let items = [];
 
@@ -37,17 +37,19 @@ export const registrarListener = (mail, fnPintarLista) => {
         .doc(mail)
         .collection('items')
         .onSnapshot((snapShotCambios) => {
-            let cambios = snapShotCambios.docChanges();
-            let cambio;
-            for (let i = 0; i < cambios.length; i++) {
-                cambio = cambios[i];
-                if (cambio.type === "added") {
-                    items.push(cambio.doc.data());
-                } else if (cambio.type === "removed") {
-                    items = items.filter(item => item.id != cambio.doc.data().id);
+
+            for (cambio of snapShotCambios.docChanges()) {
+                switch (cambio.type) {
+                    case "added":
+                        items.push(cambio.doc.data());
+                        break;
+                    case "removed":
+                        let index = items.findIndex(e => e.id == cambio.doc.data().id)
+                        if (index >= 0) items.splice(index, 1);
+                        break;
                 }
             }
 
-            fnPintarLista(items);
+            fnCallback(items);
         });
 }

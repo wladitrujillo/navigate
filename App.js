@@ -19,7 +19,7 @@ import { YellowBox } from "react-native";
 let NavStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
 let NavDrawer = createDrawerNavigator();
-
+  
 
 let TabHome = () => {
   return <NavTab.Navigator>

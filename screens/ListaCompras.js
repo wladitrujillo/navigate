@@ -2,18 +2,15 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { registrarListener } from "../services/servicios.product";
+import ItemProductoListar from "../components/ItemProductoListar";
 
 export class ListaCompras extends Component {
 
   constructor() {
     super();
-
-
     this.state = {
       products: []
     }
-
-
   }
 
   componentDidMount() {
@@ -32,7 +29,7 @@ export class ListaCompras extends Component {
         <Text>LISTA DE COMPRAS</Text>
         <FlatList
           data={this.state.products}
-          renderItem={({ item }) => <Text>{item.name}</Text>}
+          renderItem={({ item }) => <ItemProductoListar prod={item}></ItemProductoListar>}
           keyExtractor={product => product.id + ""} >
         </FlatList>
         <Button
@@ -45,9 +42,10 @@ export class ListaCompras extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'column',//eje principal es el vertical    
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "stretch",//aplica al eje transversal (en este caso horizontal)
+    justifyContent: "center",//aplica al eje principal (en este caso vertical)
   },
 });

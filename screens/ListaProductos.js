@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button, Alert, FlatList } from "react-native";
 import ActionButton from 'react-native-action-button';
-import ItemProducto from './ItemProducto';
+import ItemProducto from '../components/ItemProducto';
 import { registrarListener } from "../services/servicios.product";
 export class ListaProductos extends Component {
 

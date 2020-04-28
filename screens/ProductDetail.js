@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Avatar, Button } from "react-native-elements";
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { addItem } from "../services/servicios.car"
 export class ProductDetail extends Component {
 
     render() {
@@ -27,6 +27,14 @@ export class ProductDetail extends Component {
                         />
                     }
                     title="Add car"
+                    onPress={() => {
+                        addItem(global.user.email, {
+                            count: 1,
+                            name: prod.name,
+                            price: prod.price,
+                            id: prod.id
+                        })
+                    }}
                 />
             </View>
         </View>

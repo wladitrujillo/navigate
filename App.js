@@ -11,6 +11,7 @@ import { FormularioProducto } from "./screens/FormularioProducto";
 import { Informacion } from "./screens/Informacion";
 import { Registrarse } from "./screens/Registro";
 import { ProductDetail } from "./screens/ProductDetail";
+import { CarritoCompras } from "./screens/CarritoCompras";
 import { CambioClave } from "./screens/CambioClave";
 import { Login } from "./screens/Login";
 import { cargarConfiguracion } from "./services/firebase.config"
@@ -71,6 +72,10 @@ let Home = () => {
       name="ProductDetailScreen"
       component={ProductDetail} options={{ title: "Product Detail" }}
     />
+    <NavStack.Screen
+      name="CarritoComprasScreen"
+      component={CarritoCompras} options={{ title: "Mi Carrito" }}
+    />
   </NavStack.Navigator>
 }
 
@@ -92,7 +97,7 @@ export default class App extends Component {
     }
 
     firebase.auth().onAuthStateChanged((user) => {
-      console.log("onAuthStateChanged", user);
+      console.log("onAuthStateChanged", user.lastLoginAt);
       if (user) {
 
         this.setState({

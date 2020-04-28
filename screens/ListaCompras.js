@@ -33,8 +33,8 @@ export class ListaCompras extends Component {
           keyExtractor={product => product.id + ""} >
         </FlatList>
         <Button
-          title="Detalle Compra"
-          onPress={() => { this.props.navigation.navigate("DetalleCompraScreen") }} />
+          title="Mi carrito"
+          onPress={() => { this.props.navigation.navigate("CarritoComprasScreen") }} />
       </View>
     );
   }

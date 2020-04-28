@@ -33,7 +33,7 @@ export class ProductDetail extends Component {
                             name: prod.name,
                             price: prod.price,
                             id: prod.id
-                        })
+                        }, this.onSuccess)
                     }}
                 />
             </View>
@@ -41,6 +41,8 @@ export class ProductDetail extends Component {
 
 
     }
+
+    onSuccess = () => { this.props.navigation.goBack() }
 
 }
 

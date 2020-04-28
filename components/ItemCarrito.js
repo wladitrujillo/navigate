@@ -25,15 +25,8 @@ export default class ItemCarrito extends Component {
             <View style={styles.button}>
                 <Button title="Delete" onPress={() => { deleteItem(global.user.email, id) }} />
             </View>
-
-
         </View>
-
-
     }
-
-
-
 }
 
 const styles = StyleSheet.create({

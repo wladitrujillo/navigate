@@ -10,6 +10,7 @@ import { ListaProductos } from "./screens/ListaProductos";
 import { FormularioProducto } from "./screens/FormularioProducto";
 import { Informacion } from "./screens/Informacion";
 import { Registrarse } from "./screens/Registro";
+import { ProductDetail } from "./screens/ProductDetail";
 import { CambioClave } from "./screens/CambioClave";
 import { Login } from "./screens/Login";
 import { cargarConfiguracion } from "./services/firebase.config"
@@ -19,7 +20,7 @@ import { YellowBox } from "react-native";
 let NavStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
 let NavDrawer = createDrawerNavigator();
-  
+
 
 let TabHome = () => {
   return <NavTab.Navigator>
@@ -65,6 +66,10 @@ let Home = () => {
     <NavStack.Screen
       name="FormularioProductoScreen"
       component={FormularioProducto} options={{ title: "Formulario de Productos" }}
+    />
+    <NavStack.Screen
+      name="ProductDetailScreen"
+      component={ProductDetail} options={{ title: "Product Detail" }}
     />
   </NavStack.Navigator>
 }

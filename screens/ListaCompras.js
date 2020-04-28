@@ -29,7 +29,7 @@ export class ListaCompras extends Component {
         <Text>LISTA DE COMPRAS</Text>
         <FlatList
           data={this.state.products}
-          renderItem={({ item }) => <ItemProductoListar prod={item}></ItemProductoListar>}
+          renderItem={({ item }) => <ItemProductoListar prod={item} nav={this.props.navigation}></ItemProductoListar>}
           keyExtractor={product => product.id + ""} >
         </FlatList>
         <Button

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Avatar } from "react-native-elements";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 
 
@@ -8,19 +9,26 @@ export default class ItemProductoListar extends Component {
 
     render() {
 
+        let { nav, prod } = this.props;
+
         let { id, name, price } = this.props.prod;
 
-        return <View style={styles.row}>
+        return <View>
+            <TouchableHighlight
+                onPress={() => { nav.navigate('ProductDetailScreen', { prod: prod }) }}>
+                <View style={styles.row}>
 
-            <View style={styles.image}>
-                <Avatar title={name.substring(0, 1).toUpperCase()}></Avatar>
-            </View>
-            <View style={styles.description}>
-                <Text style={styles.descriptionText}> {id} - {name}</Text>
-            </View>
-            <View style={styles.price}>
-                <Text style={styles.priceText}> {price}</Text>
-            </View>
+                    <View style={styles.image}>
+                        <Avatar title={name.substring(0, 1).toUpperCase()}></Avatar>
+                    </View>
+                    <View style={styles.description}>
+                        <Text style={styles.descriptionText}> {id} - {name}</Text>
+                    </View>
+                    <View style={styles.price}>
+                        <Text style={styles.priceText}> {price}</Text>
+                    </View>
+                </View>
+            </TouchableHighlight>
         </View>
     }
 }

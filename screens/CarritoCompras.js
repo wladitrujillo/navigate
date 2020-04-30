@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Button } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { registrarListener } from "../services/servicios.car";
+import { registrarListener, vaciarCarrito } from "../services/servicios.car";
 import ItemCarrito from "../components/ItemCarrito";
+
 
 export class CarritoCompras extends Component {
 
     constructor() {
         super();
         this.state = {
-            products: []
+            products: [],
+            total: 0
         }
     }
 
@@ -17,21 +19,33 @@ export class CarritoCompras extends Component {
         registrarListener(global.user.email, this.pintarLista);
     }
 
-    pintarLista = (arregloProducts) => {
+    pintarLista = (productList) => {
 
+        let total = productList.reduce((suma, item) => suma + item.subtotal, 0);
+        console.log("Suma", total);
         this.setState({
-            products: arregloProducts
+            products: productList,
+            total: total
         });
     }
 
     render() {
 
         return <View style={styles.row}>
+
+            <Text>{this.state.total}</Text>
+            <Button
+                title="Vaciar Carrito"
+                onPress={() => {
+                    vaciarCarrito(global.user.email, this.state.products);
+                }} />
             <FlatList
                 data={this.state.products}
                 renderItem={({ item }) => <ItemCarrito prod={item} nav={this.props.navigation} />}
                 keyExtractor={product => product.id + ""} >
             </FlatList>
+
+
         </View>
 
 

@@ -11,7 +11,11 @@ export class ProductDetail extends Component {
 
         return <View style={styles.row}>
             <View style={styles.image}>
-                <Avatar size={200} title={prod.name.substring(0, 2).toUpperCase()}></Avatar>
+                <Avatar
+                    size={"xlarge"}
+                    title={prod.name.substring(0, 2).toUpperCase()}
+                    source={{ uri: prod.url }}
+                ></Avatar>
             </View>
             <View style={styles.text}>
                 <Text style={{ fontSize: 40, fontWeight: "bold" }}>{prod.name}</Text>
@@ -28,12 +32,13 @@ export class ProductDetail extends Component {
                     }
                     title="Add car"
                     onPress={() => {
+                        console.log("Add car");
                         addItem(global.user.email, {
                             count: 1,
                             name: prod.name,
                             price: prod.price,
                             id: prod.id
-                        }, this.onSuccess)
+                        }, 1, this.onSuccess)
                     }}
                 />
             </View>

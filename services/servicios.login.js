@@ -1,17 +1,19 @@
 import { Alert } from "react-native";
 import firebase from "firebase";
 
-export const userRegister = (email, password, fnToLogin) => {
+export const userRegister = async (email, password, fnToLogin) => {
 
-    firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((obj) => {
-            fnToLogin();
-        })
-        .catch((error) => {
-            Alert.alert("Error!", error.message + "-" + error.code)
-        })
+    try {
+        let obj = firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, password);
+        console.log("Mensaje", obj.user);
+        fnToLogin();
+
+    } catch (error) {
+        console.log("User register error", error);
+        Alert.alert("Error!", error.message + "-" + error.code)
+    }
 }
 
 
@@ -27,24 +29,25 @@ export const recuperarClave = (email, fnToLogin) => {
         })
 }
 
-export const validarIngreso = (email, password) => {
+export const validarIngreso = async (email, password) => {
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((obj) => {
+    try {
+        let obj = firebase.auth().signInWithEmailAndPassword(email, password);
+        console.log("Login", obj)
+    } catch (error) {
+        Alert.alert("Error!", error.message + "-" + error.code)
+    }
 
-        })
-        .catch((error) => {
-            Alert.alert("Error!", error.message + "-" + error.code)
-        })
+
 }
 
-export const cerrarSesion = () => {
+export const cerrarSesion = async () => {
 
-    firebase.auth().signOut()
-        .then((obj) => {
+    try {
+        await firebase.auth().signOut();
+    } catch (error) {
+        Alert.alert("Error!", error.message + "-" + error.code)
+    }
 
-        })
-        .catch((error) => {
-            Alert.alert("Error!", error.message + "-" + error.code)
-        })
+
 }

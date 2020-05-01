@@ -3,34 +3,46 @@ import { onError } from "../utils/callbacks";
 
 const products = 'products';
 
-export const createProduct = (product, fnOnSuccess) => {
+export const createProduct = async (product, fnOnSuccess) => {
 
-    global.firestoredb
-        .collection(products)
-        .doc(product.id)
-        .set(product)
-        .then((obj) => { fnOnSuccess() })
-        .catch((error) => { onError(error) })
+
+    try {
+        let obt = await global.firestoredb
+            .collection(products)
+            .doc(product.id)
+            .set(product);
+        fnOnSuccess();
+    } catch (error) {
+        onError(error)
+    }
+
+
 }
 
-export const updateProduct = (product, fnOnSuccess) => {
+export const updateProduct = async (product, fnOnSuccess) => {
 
-    global.firestoredb
-        .collection(products)
-        .doc(product.id)
-        .update({ name: product.name, price: product.price })
-        .then((obj) => { fnOnSuccess() })
-        .catch((error) => { onError(error) })
+    try {
+        let obj = await global.firestoredb
+            .collection(products)
+            .doc(product.id)
+            .update({ name: product.name, price: product.price });
+        fnOnSuccess();
+    } catch (error) {
+        onError(error)
+    }
 }
 
-export const deleteProduct = (id, fnOnSuccess) => {
+export const deleteProduct = async (id, fnOnSuccess) => {
 
-    global.firestoredb
-        .collection(products)
-        .doc(id)
-        .delete()
-        .then((obj) => { fnOnSuccess() })
-        .catch((error) => { onError(error) })
+    try {
+        let obj = await global.firestoredb
+            .collection(products)
+            .doc(id)
+            .delete();
+        fnOnSuccess();
+    } catch (error) {
+        onError(error);
+    }
 }
 
 

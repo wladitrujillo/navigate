@@ -3,52 +3,46 @@ import { onError } from "../utils/callbacks";
 //todos los carritos de compra de todos los usuarios
 const carritos = 'carritos';
 
-export const addItem = (mail, itemProducto, value, fnOnSuccess) => {
+export const addItem = async (mail, itemProducto, value, fnOnSuccess) => {
     console.log("additem", mail);
-    global.firestoredb
-        .collection(carritos)
-        .doc(mail)
-        .collection('items')
-        .doc(itemProducto.id)
-        .get()
-        .then((obj) => {
-            if (obj.exists) {
-                update(obj.id, {
-                    count: obj.data().count + value,
-                    subtotal: (obj.data().count + value) * obj.data().price
-                })
-            } else {
-                add();
-            }
-        })
-        .catch(error => onError(error))
-
-
-    function add() {
-
-        itemProducto.subtotal = itemProducto.price;
-        global.firestoredb
+    try {
+        let obj = await global.firestoredb
             .collection(carritos)
             .doc(mail)
             .collection('items')
             .doc(itemProducto.id)
-            .set(itemProducto)
-            .then((obj) => { fnOnSuccess(obj) })
-            .catch((error) => { onError(error) })
+            .get();
+
+        if (obj.exists) {
+
+            await global.firestoredb
+                .collection(carritos)
+                .doc(mail)
+                .collection('items')
+                .doc(obj.id)
+                .update({
+                    count: obj.data().count + value,
+                    subtotal: (obj.data().count + value) * obj.data().price
+                });
+
+            console.log("Update count");
+
+        } else {
+            
+            await global.firestoredb
+                .collection(carritos)
+                .doc(mail)
+                .collection('items')
+                .doc(itemProducto.id)
+                .set(itemProducto);
+
+            fnOnSuccess(obj)
+        }
+
+
+    } catch (error) {
+        onError(error);
     }
-
-    function update(id, data) {
-        global.firestoredb
-            .collection(carritos)
-            .doc(mail)
-            .collection('items')
-            .doc(id)
-            .update(data)
-            .then((obj) => { console.log("Update count") })
-            .catch((error) => { onError(error) })
-    }
-
-
 
 }
 

@@ -18,6 +18,7 @@ import { cargarConfiguracion } from "./services/firebase.config"
 import firebase from "firebase";
 import { CerrarSesion } from './screens/CerrarSesion';
 import { YellowBox } from "react-native";
+import { CargarImagen } from './screens/CargarImagen';
 let NavStack = createStackNavigator();
 let NavTab = createBottomTabNavigator();
 let NavDrawer = createDrawerNavigator();
@@ -62,19 +63,28 @@ let Home = () => {
     />
     <NavStack.Screen
       name="DetalleCompraScreen"
-      component={DetalleCompra} options={{ title: "Detalle Compra" }}
+      component={DetalleCompra}
+      options={{ title: "Detalle Compra" }}
     />
     <NavStack.Screen
       name="FormularioProductoScreen"
-      component={FormularioProducto} options={{ title: "Formulario de Productos" }}
+      component={FormularioProducto}
+      options={{ title: "Formulario de Productos" }}
     />
     <NavStack.Screen
       name="ProductDetailScreen"
-      component={ProductDetail} options={{ title: "Product Detail" }}
+      component={ProductDetail}
+      options={{ title: "Product Detail" }}
     />
     <NavStack.Screen
       name="CarritoComprasScreen"
-      component={CarritoCompras} options={{ title: "Mi Carrito" }}
+      component={CarritoCompras}
+      options={{ title: "Mi Carrito" }}
+    />
+    <NavStack.Screen
+      name="CargarImagenScreen"
+      component={CargarImagen}
+      options={{ title: "Cargar Imagen" }}
     />
   </NavStack.Navigator>
 }

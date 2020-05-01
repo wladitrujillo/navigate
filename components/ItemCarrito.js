@@ -19,8 +19,8 @@ export default class ItemCarrito extends Component {
 
             <View style={styles.image}>
                 <Avatar
-                    title={name.substring(0, 1).toUpperCase()}                   
-                ></Avatar>  
+                    title={name.substring(0, 1).toUpperCase()}
+                ></Avatar>
             </View>
 
             <View style={styles.description}>
@@ -38,7 +38,10 @@ export default class ItemCarrito extends Component {
                         color="white"
                     />
                 }
-                    onPress={() => { addItem(global.user.email, prod, 1, () => { }) }}
+                    onPress={() => {
+                        console.log("On press add", count);
+                        addItem(global.user.email, prod, 1)
+                    }}
                 />
                 <Text>{count}</Text>
                 <Button icon={
@@ -50,7 +53,7 @@ export default class ItemCarrito extends Component {
                 }
                     onPress={() => {
                         console.log("On press delete", count);
-                        addItem(global.user.email, prod, -1, () => { })
+                        addItem(global.user.email, prod, -1)
                         /*count > 1 ?
                             addItem(global.user.email, prod, -1, () => { }) :
                             deleteItem(global.user.email, id)*/

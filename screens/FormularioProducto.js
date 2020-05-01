@@ -55,6 +55,10 @@ export class FormularioProducto extends Component {
               size={200}></Avatar>
         }
 
+        <Button
+          title="Edit Image"
+          onPress={() => { this.props.navigation.navigate("CargarImagenScreen") }}
+        />
         <Input
           placeholder="Id"
           value={this.state.id}

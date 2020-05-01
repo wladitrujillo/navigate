@@ -7,13 +7,9 @@ export class ListaProductos extends Component {
 
   constructor() {
     super();
-
-
     this.state = {
       products: []
     }
-
-
   }
 
   componentDidMount() {

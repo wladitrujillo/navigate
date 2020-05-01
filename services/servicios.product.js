@@ -50,25 +50,23 @@ export const registrarListener = (fnPintarLista) => {
 
     let items = [];
 
-    let findIndex = (cambio) => {
-        return items.findIndex(e => e.id == cambio.doc.data().id);;
-    }
-
     global.firestoredb
         .collection(products)
         .onSnapshot((snapShotCambios) => {
 
             for (cambio of snapShotCambios.docChanges()) {
-                let index = findIndex(cambio)
+
                 switch (cambio.type) {
                     case "added":
                         items.push(cambio.doc.data());
                         break;
                     case "removed":
+                        let index = items.findIndex(e => e.id == cambio.doc.data().id);
                         if (index >= 0) items.splice(index, 1);
                         break;
                     case "modified":
-                        if (index >= 0) items[index] = cambio.doc.data();
+                        let i = items.findIndex(e => e.id == cambio.doc.data().id);
+                        if (i >= 0) items[i] = cambio.doc.data();
                         break;
                 }
             }

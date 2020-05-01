@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import { createProduct, updateProduct } from "../services/servicios.product";
-import { Input } from "react-native-elements";
+import { Input, Avatar } from "react-native-elements";
 export class FormularioProducto extends Component {
 
   constructor(props) {
@@ -12,7 +12,8 @@ export class FormularioProducto extends Component {
         id: product.id,
         name: product.name,
         price: product.price + "",
-        isNew: false
+        isNew: false,
+        url: product.url
       }
     } else {
       this.state = {
@@ -41,7 +42,19 @@ export class FormularioProducto extends Component {
   render() {
     return (
       <View style={styles.container}>
+
         <Text>FORMULARIO DE PROUDCTO</Text>
+
+        {
+          this.state.isNew ?
+            <Avatar
+              icon={{ name: 'user', type: 'font-awesome' }} size="xlarge"></Avatar> :
+            <Avatar
+              title={this.state.name.substring(0, 2).toUpperCase()}
+              source={this.state.url ? { uri: this.state.url } : null}
+              size={200}></Avatar>
+        }
+
         <Input
           placeholder="Id"
           value={this.state.id}
@@ -82,7 +95,7 @@ export class FormularioProducto extends Component {
 
           }}
         />
-      </View>
+      </View >
     );
   }
 }

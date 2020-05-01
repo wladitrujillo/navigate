@@ -46,11 +46,27 @@ export class CargarImagen extends Component {
         req.send(null);
     };
 
-    saveStorage=()=>{
-       
-        this.uriToBlob(this.state.imageUrl,(blob)=>{
-            
+    saveStorage = () => {
+
+        console.log("saveStorage");
+        if (!this.state.imageUrl) return;
+        console.log("calling uriToBlob");
+        this.uriToBlob(this.state.imageUrl, async (blob) => {
+            let name = new Date().getTime();
+            let obt = await global.storage
+                .ref()
+                .child("/images/" + name)
+                .put(blob);
+
+            await this.getUrl(name);
         })
+    }
+
+    getUrl = async (name) => {
+        let url = await global.storage
+            .refFromURL("gs://reactnative-6475c.appspot.com/images/" + name)
+            .getDownloadURL();
+        this.props.route.params.fnUrl(url);
     }
 
     render() {
@@ -62,7 +78,11 @@ export class CargarImagen extends Component {
                 size="xlarge"
                 source={{ uri: this.state.imageUrl }}
             ></Avatar>
-            <Button onPress={()=>{saveStorage()}}></Button>
+
+            <Button
+                title="Save"
+                onPress={() => { this.saveStorage() }}></Button>
+
         </View>
 
 

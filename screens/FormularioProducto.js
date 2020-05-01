@@ -35,6 +35,14 @@ export class FormularioProducto extends Component {
     });
   }
 
+  recibirUrl = (imageUrl) => {
+    console.log("On Formulario Producto recibir url", imageUrl)
+    this.setState({
+      url: imageUrl
+    });
+    this.props.navigation.navigate("FormularioProductoScreen");
+  }
+
   onSuccess = () => {
     this.limpiar();
   }
@@ -46,18 +54,19 @@ export class FormularioProducto extends Component {
         <Text>FORMULARIO DE PROUDCTO</Text>
 
         {
-          this.state.isNew ?
-            <Avatar
-              icon={{ name: 'user', type: 'font-awesome' }} size="xlarge"></Avatar> :
+          this.state.url ?
             <Avatar
               title={this.state.name.substring(0, 2).toUpperCase()}
               source={this.state.url ? { uri: this.state.url } : null}
-              size={200}></Avatar>
+              size={200}></Avatar> :
+            <Avatar
+              icon={{ name: 'user', type: 'font-awesome' }} size="xlarge"></Avatar>
+
         }
 
         <Button
           title="Edit Image"
-          onPress={() => { this.props.navigation.navigate("CargarImagenScreen") }}
+          onPress={() => { this.props.navigation.navigate("CargarImagenScreen", { fnUrl: this.recibirUrl }) }}
         />
         <Input
           placeholder="Id"
@@ -94,9 +103,6 @@ export class FormularioProducto extends Component {
                 price: parseFloat(this.state.price)
               }, this.onSuccess);
             }
-
-
-
           }}
         />
       </View >

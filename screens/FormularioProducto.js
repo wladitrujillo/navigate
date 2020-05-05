@@ -48,6 +48,7 @@ export class FormularioProducto extends Component {
   }
 
   render() {
+    let { id, url, name, price } = this.state;
     return (
       <View style={styles.container}>
 
@@ -56,8 +57,8 @@ export class FormularioProducto extends Component {
         {
           this.state.url ?
             <Avatar
-              title={this.state.name.substring(0, 2).toUpperCase()}
-              source={this.state.url ? { uri: this.state.url } : null}
+              title={name.substring(0, 2).toUpperCase()}
+              source={url ? { uri: url } : null}
               size={200}></Avatar> :
             <Avatar
               icon={{ name: 'user', type: 'font-awesome' }} size="xlarge"></Avatar>
@@ -76,12 +77,12 @@ export class FormularioProducto extends Component {
         />
         <Input
           placeholder="Nombre"
-          value={this.state.name}
+          value={name}
           onChangeText={(name) => { this.setState({ name: name }) }}
         />
         <Input
           placeholder="Precio"
-          value={this.state.price}
+          value={price}
           onChangeText={(price) => { this.setState({ price: price }) }}
         />
         <Button
@@ -91,16 +92,16 @@ export class FormularioProducto extends Component {
             if (this.state.isNew) {
 
               createProduct({
-                id: this.state.id,
-                name: this.state.name,
-                price: parseFloat(this.state.price)
+                id: id,
+                name: name,
+                price: parseFloat(price)
               }, this.onSuccess);
 
             } else {
               updateProduct({
-                id: this.state.id,
-                name: this.state.name,
-                price: parseFloat(this.state.price)
+                id: id,
+                name: name,
+                price: parseFloat(price)
               }, this.onSuccess);
             }
           }}
